@@ -1,0 +1,243 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Prabhu V S.ipynb",
+      "provenance": []
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "L-_esjBdIdV3",
+        "outputId": "dae4d864-cf32-4943-8818-c9c504e09740"
+      },
+      "source": [
+        "from keras.datasets import mnist\n",
+        "data = mnist.load_data()"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz\n",
+            "11493376/11490434 [==============================] - 0s 0us/step\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "_zviXz9NIipr"
+      },
+      "source": [
+        "(X_train,y_train),(X_test,y_test) = data"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "VXkkRVDbIskf",
+        "outputId": "21f2bcc5-eece-4515-ec9e-66c59f4fa5bd"
+      },
+      "source": [
+        "X_train[0].shape"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "(28, 28)"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 4
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "OJDpmPo9I1dB",
+        "outputId": "4f69a319-cc02-4509-a017-b9d87d3d4f84"
+      },
+      "source": [
+        " X_train.shape"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "(60000, 28, 28)"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 5
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "background_save": true,
+          "base_uri": "https://localhost:8080/",
+          "height": 217
+        },
+        "id": "78TLRycDI840",
+        "outputId": "67b1ed80-c89d-427c-9242-a7b67da3630d"
+      },
+      "source": [
+        " \n",
+        "X_train = X_train.reshape((X_train.shape[0],28*28)).astype('float32')\n",
+        "X_test = X_test.reshape((X_text.shape[0],28*28)).astype('float32)"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "SyntaxError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;36m  File \u001b[0;32m\"<ipython-input-7-cf85ef9196b4>\"\u001b[0;36m, line \u001b[0;32m3\u001b[0m\n\u001b[0;31m    X_test = X_test.reshape((X_text.shape,28*28)).astype('float32)\u001b[0m\n\u001b[0m                                                                  ^\u001b[0m\n\u001b[0;31mSyntaxError\u001b[0m\u001b[0;31m:\u001b[0m EOL while scanning string literal\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "QNmui4nCJNM1"
+      },
+      "source": [
+        " \n",
+        "X_train = X_train /255\n",
+        "X_test = X_test /255"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Dw62kc9YJSTX"
+      },
+      "source": [
+        "\n",
+        "from keras.utils import np_utils\n",
+        "print(y_test.shape)\n",
+        "y_train = np_utils.to_categorically(y_train)\n",
+        "y_test = np_utils.to_categorically(y_test)\n",
+        "num_classes = y_test.shape[1]\n",
+        "print(y_test.shape)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "e61yMF8aJaPy"
+      },
+      "source": [
+        " \n",
+        "from keras.models import Sequential\n",
+        "from keras.layers import Dense"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "jYWJC1jiJuTY"
+      },
+      "source": [
+        " \n",
+        "model = Sequential()\n",
+        "model.add(Dense(32,input_dim = 28*28, activation='relu'))\n",
+        "model.add(Dense(64, activation='relu'))\n",
+        "model.add(Dense(10, activation='softmax'))"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "zcAhTS2mJ3zP"
+      },
+      "source": [
+        " model.compile(loss='categorical_crossentropy',optimizer='adam',metrices['accuracy'])"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "_OuQ6mpEJ_C0"
+      },
+      "source": [
+        " model.summary()"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ADwsBFROKCZU"
+      },
+      "source": [
+        " model.fit(X_train, y_train, epochs=10, batch_size=100"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "zPW1XjukKJNu"
+      },
+      "source": [
+        " \n",
+        "scores = model.evaluate(X_test, y_test)\n",
+        "print(scores)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
